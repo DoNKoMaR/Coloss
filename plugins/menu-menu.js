@@ -16,7 +16,7 @@ let more = String.fromCharCode(8206)
 let readMore = more.repeat(850)   
 let taguser = '@' + m.sender.split("@s.whatsapp.net")[0]
 let str = `
-*ミ💖 ПРИВЕТ✨${taguser}✨, ЗДЕСЬ ВСЕ КОМАНДЫ БОТА АЛЬТРОНА 💖彡*
+*ミ💖 ПРИВЕТ✨${taguser}✨, ЗДЕСЬ ВСЕ КОМАНДЫ БОТА ColossusА 💖彡*
 
 *📅 ДАТА: ${week}, ${date}*
 *📈 АКТИВНОЕ ВРЕМЯ: ${uptime}*
@@ -51,7 +51,7 @@ let str = `
 ° ඬ⃟🎖️ _${usedPrefix}лучший *<имя / @номер>*_
 ° ඬ⃟🎖️ _${usedPrefix}якрасивая *<имя / @номер>*_
 ° ඬ⃟🎖️ _${usedPrefix}хитрый *<имя / @номер>*_
-° ඬ⃟🎖️ _${usedPrefix}альтрон *<текст>*_
+° ඬ⃟🎖️ _${usedPrefix}Colossus *<текст>*_
 ° ඬ⃟🎖️ _${usedPrefix}бот *<текст>*_
 ° ඬ⃟🎖️ _${usedPrefix}игра_
 ° ඬ⃟🎖️ _${usedPrefix}свадьба_
@@ -59,7 +59,7 @@ let str = `
 ° ඬ⃟🎖️ _${usedPrefix}радуга *<@номер>*_
 ° ඬ⃟🎖️ _${usedPrefix}любовь *<@номер*_
 ° ඬ⃟🎖️ _${usedPrefix}желания_
-° ඬ⃟🎖️ _${usedPrefix}альтрон*<текст>*_
+° ඬ⃟🎖️ _${usedPrefix}Colossus*<текст>*_
 ° ඬ⃟🎖️ _${usedPrefix}код *<текст>*_
 ° ඬ⃟🎖️ _${usedPrefix}сполер *<текст>*_
 ° ඬ⃟🎖️ _${usedPrefix}авотарка_
@@ -162,10 +162,10 @@ externalAdReply: {
 showAdAttribution: true,
 mediaType: 'VIDEO',
 mediaUrl: null,
-title: '👑АЛЬТРОН - 𝐁𝐎𝐓 👑',
+title: '👑Colossus - 𝐁𝐎𝐓 👑',
 body: null,
 thumbnail: img,
-sourceUrl: `Бот Царя`
+sourceUrl: `Бот ☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣`
 }}}
 conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 //await conn.sendFile(m.chat, vn, 'menu.mp3', null, m, true, { type: 'audioMessage', ptt: true})

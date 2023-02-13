@@ -2,7 +2,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 var doc = ['pdf','zip','vnd.openxmlformats-officedocument.presentationml.presentation','vnd.openxmlformats-officedocument.spreadsheetml.sheet','vnd.openxmlformats-officedocument.wordprocessingml.document']
 var document = doc[Math.floor(Math.random() * doc.length)]    
 let text = `
-*—◉ НОМЕР МОЕГО СОЗДАТЕЛЯ wa.me/+79010070455*
+*—◉ НОМЕР МОЕГО СОЗДАТЕЛЯ wa.me/+79773452127*
 `.trim()   
 let buttonMessage= {
 'document': { url: `https://github.com/BrunoSobrino/TheMystic-Bot-MD` },
@@ -28,8 +28,8 @@ let buttonMessage= {
 {buttonId: `${usedPrefix}donar`, buttonText: {displayText: 'ОПЛАТА БОТА'}, type: 1}],
 'headerType': 6 }
 conn.sendMessage(m.chat, buttonMessage, { quoted: m })
-//let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;Царь 👑;;;\nFN:Царь 👑\nORG:Царь👑\nTITLE:\nitem1.TEL;waid=+79010070455:+521 999 612 5657\nitem1.X-ABLabel:Царь👑\nX-WA-BIZ-DESCRIPTION:[❗] ᴄᴏɴᴛᴀᴄᴛᴀ ᴀ ᴇsᴛᴇ ɴᴜᴍ ᴘᴀʀᴀ ᴄᴏsᴀs ɪᴍᴘᴏʀᴛᴀɴᴛᴇs.\nX-WA-BIZ-NAME:Царь 👑\nEND:VCARD`
-//await conn.sendMessage(m.chat, { contacts: { displayName: 'Царь 👑', contacts: [{ vcard }] }}, {quoted: m})
+//let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑;;;\nFN:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑\nORG:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣👑\nTITLE:\nitem1.TEL;waid=+79773452127:+521 999 612 5657\nitem1.X-ABLabel:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣👑\nX-WA-BIZ-DESCRIPTION:[❗] ᴄᴏɴᴛᴀᴄᴛᴀ ᴀ ᴇsᴛᴇ ɴᴜᴍ ᴘᴀʀᴀ ᴄᴏsᴀs ɪᴍᴘᴏʀᴛᴀɴᴛᴇs.\nX-WA-BIZ-NAME:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑\nEND:VCARD`
+//await conn.sendMessage(m.chat, { contacts: { displayName: '☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑', contacts: [{ vcard }] }}, {quoted: m})
 const data = global.owner.filter(([id, isCreator]) => id && isCreator)
 await conn.sendContact(m.chat, data.map(([id, name]) => [id, name]), m)
 }

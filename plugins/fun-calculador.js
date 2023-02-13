@@ -77,7 +77,7 @@ conn.reply(m.chat, `
 _*${text.toUpperCase()}* *ТЫ ХИТРЕЙ МЕНЯ НА* *${(500).getRandom()}%* *ПОДТВЕРЖДЕННО*_
 `.trim(), m, m.mentionedJid ? {
 mentions: m.mentionedJid
-} : {})}      
+} : {})}         
 }
 handler.help = ['gay2', 'lesbiana', 'pajero', 'pajera', 'puto', 'puta', 'manco', 'manca', 'rata', 'prostituta', 'prostituto'].map(v => v + ' @tag | nombre')
 handler.tags = ['calculator']

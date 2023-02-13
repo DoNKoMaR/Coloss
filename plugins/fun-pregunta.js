@@ -8,5 +8,5 @@ mentions: m.mentionedJid
 } : {})
 handler.help = ['pregunta <texto>?']
 handler.tags = ['kerang']
-handler.command = /^альтрон|бот|apakah$/i
+handler.command = /^Colossus|бот|apakah$/i
 export default handler
