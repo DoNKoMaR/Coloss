@@ -64,8 +64,9 @@ pkg install yarn
 ```bash
 клон git https://github.com/DoNKoMaR/Coloss
 
-компакт-диск 
-```
+компакт-диск
+Солосс
+
 
 ```bash
 yarn install 
