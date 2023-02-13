@@ -1,8 +1,17 @@
+
 # `🧿 The Colossus-Bot 🔮`
 
 ### `—◉ 👑 DUDAS SOBRE EL BOT?, CONTACTANOS 👑`
 
 <a href="http://wa.me/79773452127" target="blank"><img src="https://img.shields.io/badge/BRUNO_SOBRINO_CREADOR-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
+=======
+
+# `🧿 The Colossus-Bot 🔮`
+
+### `—◉ 👑 DUDAS SOBRE EL BOT?, CONTACTANOS 👑`
+
+<a href="http://wa.me/5219992095479" target="blank"><img src="https://img.shields.io/badge/BRUNO_SOBRINO_CREADOR-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
+>>>>>>> f7b315646e762946fce31492104fb54030a4734b
 <a href="http://wa.me/34642467703" target="blank"><img src="https://img.shields.io/badge/UNPTOADHIH15_COLAB.1-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
 <a href="http://wa.me/50499698072" target="blank"><img src="https://img.shields.io/badge/ALBERTO_ACOSTA_COLAB.2-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
 <a href="http://wa.me/595986460945" target="blank"><img src="https://img.shields.io/badge/AIDEN_NOTLOGIC_COLAB.3-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
@@ -61,10 +70,16 @@ pkg install yarn
 ```
 
 ```bash
+<<<<<<< HEAD
 git clone https://github.com/DoNKoMaR/Coloss
 
 cd Coloss
 ```
+=======
+клон git https://github.com/DoNKoMaR/Coloss
+Cd Coloss
+
+>>>>>>> f7b315646e762946fce31492104fb54030a4734b
 
 ```bash
 yarn install 
@@ -151,3 +166,6 @@ ESCRIBE LOS SIGUIENTES COMANDOS UNO POR UNO:
 `<a href="https://github.com/BrunoSobrino"><img src="https://github.com/BrunoSobrino.png" width="250" height="250" alt="BrunoSobrino"/>``</a>`
 
 `The Colossus-Bot- от ☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣`
+
+
+>>>>>>> f7b315646e762946fce31492104fb54030a4734b
