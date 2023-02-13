@@ -75,11 +75,6 @@ git clone https://github.com/DoNKoMaR/Coloss
 
 cd Coloss
 ```
-=======
-клон git https://github.com/DoNKoMaR/Coloss
-Cd Coloss
-
->>>>>>> f7b315646e762946fce31492104fb54030a4734b
 
 ```bash
 yarn install 
