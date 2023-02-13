@@ -1,4 +1,4 @@
-# Колосс
+
 # `🧿 𝚃𝚑𝚎 𝙼𝚢𝚜𝚝𝚒𝚌 - 𝙱𝚘𝚝 🔮`
 
 ### `—◉ 👑 DUDAS SOBRE EL BOT?, CONTACTANOS 👑`
@@ -63,9 +63,7 @@ pkg install yarn
 
 ```bash
 клон git https://github.com/DoNKoMaR/Coloss
-
-компакт-диск
-Солосс
+Cd Coloss
 
 
 ```bash
