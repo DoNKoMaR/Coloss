@@ -88,7 +88,7 @@ ESCRIBE LOS SIGUIENTES COMANDOS UNO POR UNO:
 ```
 
 ### `—◉ 🔥 ACTIVAR EN BOXMINEHOST 🔥`
-<a href="https://boxmineworld.com"><img src="https://i.gifer.com/TIxu.mp4" width="450" height="240" alt="mp4"/></a>
+<a href="https://boxmineworld.com"><img src="https://dzen.ru/media/id/5e609f0bb1c7d364b1a066bf/kakoe-orujie-ispolzuet-zimnii-soldat-v-filme-pervyi-mstitel-drugaia-voina-5e8dab4992068043c1170a97" width="450" height="240" alt="JPG"/></a>
 
 ### `—◉ 📝 NOTAS 📝`
 - ВОЗМОЖНО, ЧТО У БОТА ЕСТЬ КАКИЕ-ТО НЕДОСТАТКИ, ОНИ БУДУТ РЕШЕНЫ ПО мере их обнаружения
