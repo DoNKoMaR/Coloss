@@ -6,6 +6,6 @@ m.reply(textprem, null, {mentions: conn.parseMention(textprem)})
 }
 handler.help = ['premlist']
 handler.tags = ['owner']
-handler.command = /^(листпремиум|premlist)$/i
+handler.command = /^(listprem|premlist)$/i
 handler.rowner = true
 export default handler

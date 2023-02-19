@@ -16,7 +16,7 @@ await conn.sendFile(m.chat, result.data, 'Error.jpg', `*𝚃𝙾𝙼𝙰 𝚃�
 }
 handler.help = ['logos']
 handler.tags = ['nulis']
-handler.command = /^(logos)$/i
+handler.command = /^(logo|logos)$/i
 export default handler
 
 import formData from 'form-data'
@@ -24,7 +24,7 @@ import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 var effects = [
   {
-    "title": "",
+    "title": "3d-deep-sea-metal",
     "url": "https://textpro.me/create-3d-deep-sea-metal-text-effect-online-1053.html"
   },
   {

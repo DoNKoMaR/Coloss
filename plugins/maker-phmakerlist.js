@@ -429,7 +429,7 @@ m.reply(`*[❗𝐈𝐍𝐅𝐎❗] ¿𝙲𝙾𝙼𝙾 𝚄𝚂𝙰𝚁 𝙴𝚂�
 ° ඬ⃟💫 ${usedPrefix + command} winter-princess
 ° ඬ⃟💫 ${usedPrefix + command} witch
 ° ඬ⃟💫 ${usedPrefix + command} woman_pilot
-° ඬ⃟💫 ${usedPrefix + command} доска
+° ඬ⃟💫 ${usedPrefix + command} wood
 ° ඬ⃟💫 ${usedPrefix + command} worker-by-the-billboard
 ° ඬ⃟💫 ${usedPrefix + command} woven-sketch
 ° ඬ⃟💫 ${usedPrefix + command} xmas_tree

@@ -5,7 +5,7 @@ import path, { join } from 'path'
 import { fileURLToPath, pathToFileURL } from 'url'
 import { platform } from 'process'
 import * as ws from 'ws';
-import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch } from 'fs';
+import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, rmSync, watch } from 'fs';
 import yargs from 'yargs';
 import { spawn } from 'child_process';
 import lodash from 'lodash';
@@ -14,11 +14,12 @@ import syntaxerror from 'syntax-error';
 import { tmpdir } from 'os';
 import { format } from 'util';
 import P from 'pino';
+import pino from 'pino';
 import { makeWASocket, protoType, serialize } from './lib/simple.js';
 import { Low, JSONFile } from 'lowdb';
 import { mongoDB, mongoDBV2 } from './lib/mongoDB.js';
 import store from './lib/store.js'
-const { DisconnectReason, useMultiFileAuthState } = await import('@adiwajshing/baileys')
+const { DisconnectReason, useMultiFileAuthState, MessageRetryMap, fetchLatestBaileysVersion } = await import('@adiwajshing/baileys')
 const { CONNECTING } = ws
 const { chain } = lodash
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
@@ -35,7 +36,7 @@ global.timestamp = { start: new Date }
 const __dirname = global.__dirname(import.meta.url)
 
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
-global.prefix = new RegExp('^[' + (opts['prefix'] || 'xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-HhhHBb.aA').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
+global.prefix = new RegExp('^[' + (opts['prefix'] || '*/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-.@').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
 
 global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`))
 
@@ -66,12 +67,21 @@ loadDatabase()
 
 global.authFile = `MysticSession`
 const { state, saveState, saveCreds } = await useMultiFileAuthState(global.authFile)
+const msgRetryCounterMap = MessageRetryMap => { }
+let { version } = await fetchLatestBaileysVersion();
 
 const connectionOptions = {
 printQRInTerminal: true,
+patchMessageBeforeSending: (message) => {
+const requiresPatch = !!( message.buttonsMessage || message.templateMessage || message.listMessage );
+if (requiresPatch) { message = { viewOnceMessage: { message: { messageContextInfo: { deviceListMetadataVersion: 2, deviceListMetadata: {}, }, ...message, },},};}
+return message;},
+getMessage: async (key) => ( opts.store.loadMessage(/** @type {string} */(key.remoteJid), key.id) || opts.store.loadMessage(/** @type {string} */(key.id)) || {} ).message || { conversation: 'Please send messages again' },   
+msgRetryCounterMap,
+logger: pino({ level: 'silent' }),
 auth: state,
-logger: P({ level: 'silent'}),
-browser: ['TheMystic-Bot','Safari','1.0.0']
+browser: ['MysticBot','Safari','9.7.0'],
+version   
 }
 
 global.conn = makeWASocket(connectionOptions)
@@ -80,23 +90,93 @@ conn.isInit = false
 if (!opts['test']) {
 if (global.db) setInterval(async () => {
 if (global.db.data) await global.db.write()
-if (opts['autocleartmp'] && (global.support || {}).find) (tmp = [os.tmpdir(), 'tmp'], tmp.forEach(filename => cp.spawn('find', [filename, '-amin', '3', '-type', 'f', '-delete'])))
+if (opts['autocleartmp'] && (global.support || {}).find) (tmp = [os.tmpdir(), 'tmp', "jadibts"], tmp.forEach(filename => cp.spawn('find', [filename, '-amin', '3', '-type', 'f', '-delete'])))
 }, 30 * 1000)}
 
 if (opts['server']) (await import('./server.js')).default(global.conn, PORT)
 
+   
+     /* Y ese fue el momazo mas bueno del mundo
+        Aunque no dudara tan solo un segundo
+        Mas no me arrepiento de haberme reido
+        Por que la grasa es un sentimiento
+        Y ese fue el momazo mas bueno del mundo
+        Aunque no dudara tan solo un segundo
+        que me arrepiento de ser un grasoso
+        Por que la grasa es un sentimiento
+        - El waza 👻👻👻👻 (Aiden)            */
+   
+   /* Yo tambien se hacer momazos Aiden... 
+      ahi te va el ajuste de los borrados 
+      inteligentes de las sesiones y de los sub-bot  
+      By (Rey Endymion 👺👍🏼) */
+       
 function clearTmp() {
 const tmp = [tmpdir(), join(__dirname, './tmp')]
 const filename = []
 tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(dirname, file))))
 return filename.map(file => {
-const stats = statSync(file)
-if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 3)) return unlinkSync(file) // 3 minutes
-return false
-})}
+    const stats = statSync(file)
+    if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 3)) return unlinkSync(file) // 3 minutes
+    return false })}
+
+function purgeSession() {
+    let prekey = []
+    let directorio = readdirSync("./MysticSession")
+    let filesFolderPreKeys = directorio.filter(file => {
+        return file.startsWith('pre-key-')
+    })
+    prekey = [...prekey, ...filesFolderPreKeys]
+    filesFolderPreKeys.forEach(files => {
+    unlinkSync(`./MysticSession/${files}`)
+})
+
+}  
+function purgeSessionSB() {
+let listaDirectorios = readdirSync('./jadibts/');
+console.log(listaDirectorios)
+      let SBprekey = []
+listaDirectorios.forEach(filesInDir => {
+    let directorio = readdirSync(`./jadibts/${filesInDir}`)
+    console.log(directorio)
+    let DSBPreKeys = directorio.filter(fileInDir => {
+    return fileInDir.startsWith('pre-key-')
+    })
+    SBprekey = [...SBprekey, ...DSBPreKeys]
+    DSBPreKeys.forEach(fileInDir => {
+        unlinkSync(`./jadibts/${filesInDir}/${fileInDir}`) 
+    })
+    })
+    
+}
+
+function purgeOldFiles() {
+const directories = ['./MysticSession/', './jadibts/']
+const oneHourAgo = Date.now() - (60 * 60 * 1000) 
+directories.forEach(dir => {
+    readdirSync(dir, (err, files) => {
+        if (err) throw err
+        files.forEach(file => {
+            const filePath = path.join(dir, file)
+            stat(filePath, (err, stats) => {
+                if (err) throw err;
+                if (stats.isFile() && stats.mtimeMs < oneHourAgo && file !== 'creds.json') { 
+                    unlinkSync(filePath, err => {  
+                        if (err) throw err
+                        console.log(`Archivo ${file} borrado con éxito`)
+                    })
+                } else {  
+                    console.log(`Archivo ${file} no borrado`) 
+                } 
+            }) 
+        }) 
+    }) 
+})
+}
 
 async function connectionUpdate(update) {
 const { connection, lastDisconnect, isNewLogin } = update
+global.stopped = connection    
 if (isNewLogin) conn.isInit = true
 const code = lastDisconnect?.error?.output?.statusCode || lastDisconnect?.error?.output?.payload?.statusCode
 if (code && code !== DisconnectReason.loggedOut && conn?.ws.readyState !== CONNECTING) {
@@ -104,8 +184,13 @@ console.log(await global.reloadHandler(true).catch(console.error))
 global.timestamp.connect = new Date
 }
 if (global.db.data == null) loadDatabase()
+if (update.qr != 0 && update.qr != undefined) {
+console.log(chalk.yellow('🚩ㅤEscanea este codigo QR, el codigo QR expira en 60 segundos.'))
+}
 if (connection == 'open') {
 console.log(chalk.yellow('▣──────────────────────────────···\n│\n│❧ 𝙲𝙾𝙽𝙴𝙲𝚃𝙰𝙳𝙾 𝙲𝙾𝚁𝚁𝙴𝙲𝚃𝙰𝙼𝙴𝙽𝚃𝙴 𝙰𝙻 𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿 ✅\n│\n▣──────────────────────────────···'))}
+if (connection == 'close') {
+console.log(chalk.yellow(`🚩ㅤConexion cerrada, por favor borre la carpeta ${global.authFile} y reescanee el codigo QR`))}
 }
 
 process.on('uncaughtException', console.error)
@@ -136,10 +221,10 @@ conn.ev.off('connection.update', conn.connectionUpdate)
 conn.ev.off('creds.update', conn.credsUpdate)
 }
   
-conn.welcome = '*╔══════════════*\n*╟❧ @subject*\n*╠══════════════*\n*╟❧ @user*\n*╟❧ ПРИВЕТ* \n*║*\n*╟❧ ОЗНАКОМСЯ С ПРАВИЛАМИ ГРУППЫ:*\n*╟❧* @desc\n*║*\n*╟❧ ДОБРО ПОЖАЛОВАТЬ!!*\n*╚══════════════*'
-conn.bye = '*╔══════════════*\n*╟❧ @user*\n*╟❧ ЧАО КАКАО МЫ И ДРУГИХ НАЙДЕМ 👋🏻* \n*╟❧ ДО ИГРАЛСЯ ХУЙ НА СКРИПКЕ*\n*╚══════════════*'
-conn.spromote = '*@user ТЕПЕРЬ ТЫ АДМИН ГРУППЫ!!*'
-conn.sdemote = '*@user ТЫ БОЛЬШЕ НЕ АДМИН ГРУППЫ!!*'
+conn.welcome = '*╔══════════════*\n*╟❧ @subject*\n*╠══════════════*\n*╟❧ @user*\n*╟❧ 𝙱𝙸𝙴𝙽𝚅𝙴𝙽𝙸𝙳𝙾/𝙰* \n*║*\n*╟❧ 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾:*\n\n@desc\n\n*║*\n*╟❧ 𝙳𝙸𝚂𝙵𝚁𝚄𝚃𝙰 𝚃𝚄 𝙴𝚂𝚃𝙰𝙳𝙸𝙰!!*\n*╚══════════════*'
+conn.bye = '*╔══════════════*\n*╟❧ @user*\n*╟❧ 𝙷𝙰𝚂𝚃𝙰 𝙿𝚁𝙾𝙽𝚃𝙾 👋🏻* \n*╚══════════════*'
+conn.spromote = '*@user 𝚂𝙴 𝚂𝚄𝙼𝙰 𝙰𝙻 𝙶𝚁𝚄𝙿𝙾 𝙳𝙴 𝙰𝙳𝙼𝙸𝙽𝚂!!*'
+conn.sdemote = '*@user 𝙰𝙱𝙰𝙽𝙳𝙾𝙽𝙰 𝙴𝙻 𝙶𝚁𝚄𝙿𝙾 𝙳𝙴 𝙰𝙳𝙼𝙸𝙽𝚂 !!*'
 conn.sDesc = '*𝚂𝙴 𝙷𝙰 𝙼𝙾𝙳𝙸𝙵𝙸𝙲𝙰𝙳𝙾 𝙻𝙰 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾*\n\n*𝙽𝚄𝙴𝚅𝙰 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽:* @desc'
 conn.sSubject = '*𝚂𝙴 𝙷𝙰 𝙼𝙾𝙳𝙸𝙵𝙸𝙲𝙰𝙳𝙾 𝙴𝙻 𝙽𝙾𝙼𝙱𝚁𝙴 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾*\n*𝙽𝚄𝙴𝚅𝙾 𝙽𝙾𝙼𝙱𝚁𝙴:* @subject'
 conn.sIcon = '*𝚂𝙴 𝙷𝙰 𝙲𝙰𝙼𝙱𝙸𝙰𝙳𝙾 𝙻𝙰 𝙵𝙾𝚃𝙾 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾!!*'
@@ -152,6 +237,15 @@ conn.onDelete = handler.deleteUpdate.bind(global.conn)
 conn.onCall = handler.callUpdate.bind(global.conn)
 conn.connectionUpdate = connectionUpdate.bind(global.conn)
 conn.credsUpdate = saveCreds.bind(global.conn, true)
+
+const currentDateTime = new Date();
+const messageDateTime = new Date(conn.ev);
+if (currentDateTime >= messageDateTime) {
+    let chats = Object.entries(conn.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && chat.isChats).map(v => v[0])
+  //console.log(chats, conn.ev); 
+} else {
+    let chats = Object.entries(conn.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && chat.isChats).map(v => v[0])}
+ //console.log(chats, 'Omitiendo mensajes en espera.'); }
 
 conn.ev.on('messages.upsert', conn.handler)
 conn.ev.on('group-participants.update', conn.participantsUpdate)
@@ -228,9 +322,36 @@ let s = global.support = { ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm, fin
 Object.freeze(global.support)
 }
 setInterval(async () => {
-var a = await clearTmp()
-console.log(chalk.cyanBright(`\n▣─────────[ 𝙰𝚄𝚃𝙾𝙲𝙻𝙴𝙰𝚁𝚃𝙼𝙿 ]────────────···\n│\n▣─❧ 𝙰𝚁𝙲𝙷𝙸𝚅𝙾𝚂 𝙴𝙻𝙸𝙼𝙸𝙽𝙰𝙳𝙾𝚂 ✅\n│\n▣─────────────────────────────────────···\n`))
+if (stopped == 'close') return
+var a = await clearTmp()        
+console.log(chalk.cyanBright(`\n▣───────────[ 𝙰𝚄𝚃𝙾𝙲𝙻𝙴𝙰𝚁 ]──────────────···\n│\n▣─❧ 𝙰𝚁𝙲𝙷𝙸𝚅𝙾𝚂 𝙴𝙻𝙸𝙼𝙸𝙽𝙰𝙳𝙾𝚂 ✅\n│\n▣───────────────────────────────────────···\n`))
 }, 180000)
+setInterval(async () => {
+    await purgeSession()
+console.log(chalk.cyanBright(`\n▣────────[ AUTOPURGESESSIONS ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`))
+}, 1000 * 60 * 60)
+setInterval(async () => {
+     await purgeSessionSB()
+console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_SESSIONS_SUB-BOTS ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`))
+}, 1000 * 60 * 60)
+setInterval(async () => {
+    await purgeOldFiles()
+console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_OLDFILES ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`))
+}, 1000 * 60 * 60)
+setInterval(async () => {
+if (stopped == 'close') return        
+const status = global.db.data.settings[conn.user.jid] || {}
+let _uptime = process.uptime() * 1000    
+let uptime = clockString(_uptime)
+let bio = `🤖 ᴛɪᴇᴍᴘᴏ ᴀᴄᴛɪᴠᴏ: ${uptime} ┃ 👑 ʙʏ ʙʀᴜɴᴏ sᴏʙʀɪɴᴏ ┃ 🔗 ᴄᴜᴇɴᴛᴀs ᴏғᴄ: https://www.atom.bio/theshadowbrokers-team`
+await conn.updateProfileStatus(bio).catch(_ => _)
+}, 60000)
+function clockString(ms) {
+let d = isNaN(ms) ? '--' : Math.floor(ms / 86400000)
+let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
+let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+return [d, ' Día(s) ️', h, ' Hora(s) ', m, ' Minuto(s) ', s, ' Segundo(s) '].map(v => v.toString().padStart(2, 0)).join('')}
 _quickTest()
 .then(() => conn.logger.info(`Ƈᴀʀɢᴀɴᴅᴏ．．．\n`))
 .catch(console.error)

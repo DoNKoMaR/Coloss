@@ -12,5 +12,5 @@ conn.sendFile(m.chat, url, filename, null, m)
 }
 handler.help = ['gitclone <url>']
 handler.tags = ['downloader']
-handler.command = /КИШКИ/i
+handler.command = /gitclone/i
 export default handler

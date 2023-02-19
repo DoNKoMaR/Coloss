@@ -2,12 +2,14 @@ let handler = async (m, { conn, usedPrefix }) => {
 var doc = ['pdf','zip','vnd.openxmlformats-officedocument.presentationml.presentation','vnd.openxmlformats-officedocument.spreadsheetml.sheet','vnd.openxmlformats-officedocument.wordprocessingml.document']
 var document = doc[Math.floor(Math.random() * doc.length)]    
 let text = `
-*—◉ НОМЕР МОЕГО СОЗДАТЕЛЯ wa.me/+79773452127*
+*—◉ 𝙴𝙻 𝙽𝚄𝙼𝙴𝚁𝙾 𝙳𝙴 𝙼𝙸 𝙲𝚁𝙴𝙰𝙳𝙾𝚁 𝙴𝚂 wa.me/79773452127*
+
+*—◉ 𝙴𝙻 𝙲𝙾𝙽𝚃𝙰𝙲𝚃𝙾 𝙳𝙴 𝙻𝙰 𝙲𝙾𝙻𝙰𝙱𝙾𝚁𝙰𝙳𝙾𝚁𝙰 11 𝙴𝚂 https://instagram.com/gata_dios*
 `.trim()   
 let buttonMessage= {
 'document': { url: `https://github.com/BrunoSobrino/TheMystic-Bot-MD` },
 'mimetype': `application/${document}`,
-'fileName': `「  ПРИВЕТ 」`,
+'fileName': `「  𝑯𝒆𝒍𝒍𝒐 𝑾𝒐𝒓𝒍𝒅 」`,
 'fileLength': 99999999999999,
 'pageCount': 200,
 'contextInfo': {
@@ -24,16 +26,16 @@ let buttonMessage= {
 'caption': text,
 'footer': wm,
 'buttons':[
-{buttonId: `${usedPrefix}menú`, buttonText: {displayText: 'МЕНЮ'}, type: 1}, 
-{buttonId: `${usedPrefix}donar`, buttonText: {displayText: 'ОПЛАТА БОТА'}, type: 1}],
+{buttonId: `${usedPrefix}menu`, buttonText: {displayText: '👾 𝙼𝙴𝙽𝚄 👾'}, type: 1}, 
+{buttonId: `${usedPrefix}donar`, buttonText: {displayText: '📮 𝙳𝙾𝙽𝙰𝚁 📮'}, type: 1}],
 'headerType': 6 }
 conn.sendMessage(m.chat, buttonMessage, { quoted: m })
-//let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑;;;\nFN:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑\nORG:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣👑\nTITLE:\nitem1.TEL;waid=+79773452127:+521 999 612 5657\nitem1.X-ABLabel:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣👑\nX-WA-BIZ-DESCRIPTION:[❗] ᴄᴏɴᴛᴀᴄᴛᴀ ᴀ ᴇsᴛᴇ ɴᴜᴍ ᴘᴀʀᴀ ᴄᴏsᴀs ɪᴍᴘᴏʀᴛᴀɴᴛᴇs.\nX-WA-BIZ-NAME:☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑\nEND:VCARD`
-//await conn.sendMessage(m.chat, { contacts: { displayName: '☣ⒹⓞⓃ ⓀⓞⓂⓐⓇ☣ 👑', contacts: [{ vcard }] }}, {quoted: m})
-const data = global.owner.filter(([id, isCreator]) => id && isCreator)
-await conn.sendContact(m.chat, data.map(([id, name]) => [id, name]), m)
+//let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:;𝑩𝒓𝒖𝒏𝒐 𝑺𝒐𝒃𝒓𝒊𝒏𝒐 👑;;;\nFN:𝑩𝒓𝒖𝒏𝒐 𝑺𝒐𝒃𝒓𝒊𝒏𝒐 👑\nORG:𝑩𝒓𝒖𝒏𝒐 𝑺𝒐𝒃𝒓𝒊𝒏𝒐 👑\nTITLE:\nitem1.TEL;waid=5219996125657:+521 999 612 5657\nitem1.X-ABLabel:𝑩𝒓𝒖𝒏𝒐 𝑺𝒐𝒃𝒓𝒊𝒏𝒐 👑\nX-WA-BIZ-DESCRIPTION:[❗] ᴄᴏɴᴛᴀᴄᴛᴀ ᴀ ᴇsᴛᴇ ɴᴜᴍ ᴘᴀʀᴀ ᴄᴏsᴀs ɪᴍᴘᴏʀᴛᴀɴᴛᴇs.\nX-WA-BIZ-NAME:𝑩𝒓𝒖𝒏𝒐 𝑺𝒐𝒃𝒓𝒊𝒏𝒐 👑\nEND:VCARD`
+//await conn.sendMessage(m.chat, { contacts: { displayName: 'Bruno Sobrino 👑', contacts: [{ vcard }] }}, {quoted: m})
+//const data = global.owner.filter(([id, isCreator]) => id && isCreator)
+//await conn.sendContact(m.chat, data.map(([id, name]) => [id, name]), m)
 }
-handler.help = ['owner', 'creator']
+handler.help = ['владелец', 'creator']
 handler.tags = ['info']
-handler.command = /^(создатель|creator|creador|propietario)$/i
+handler.command = /^(owner|creator|creador|propietario)$/i
 export default handler

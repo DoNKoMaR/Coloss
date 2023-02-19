@@ -1,90 +1,140 @@
-/*---------------------------------------------------------------------------------------
-  🍀 • By https://github.com/ALBERTO9883
-  🍀 • ⚘Alberto Y Ashly⚘
-  🍀 • https://github.com/ALBERTO9883/NyanCatBot-MD
------------------------------------------------------------------------------------------*/
-
 import axios from "axios"
 let handler = async (m, {command, conn}) => {
-let fgif = { key: {participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: "6289643739077-1613049930@g.us" } : {})},message: {"videoMessage": { "title":`️u`, "h": `Hmm`,'seconds': '99999', 'gifPlayback': 'true', 'caption': `🧿 Colossus - 𝙱𝚘𝚝 🔮`, 'jpegThumbnail': false }}}
-let apikey = keysxxx
+let apikey = global.keysxxx
 let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let user = global.db.data.users[who]
 let name = await conn.getName[who]
-if (command == 'ухх') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/mountain?apikey=APIKEY`)
+let fgif = m
+
+if (command == 'wpmontaña') {
+let anu = await wallpaper('mountain')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0] 
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'pubg') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/pubg?apikey=APIKEY`)
+let pug = ['pubg', 'playerunknowns battlegrounds', 'pubg mobile']  
+let pug2 = pug[Math.floor(Math.random() * pug.length)] 
+let anu = await wallpaper(pug2)
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0] 
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'wpgaming') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/gaming?apikey=APIKEY`)
+let ga = ['gaming', 'gamers', 'video game']  
+let ga2 = ga[Math.floor(Math.random() * ga.length)] 
+let anu = await wallpaper(ga2)
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0] 
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'wpaesthetic') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/wallhp?apikey=APIKEY`)
+let anu = await wallpaper('aesthetic')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0] 
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'wprandom') {
-let res = await axios("https://meme-api.herokuapp.com/gimme/wallpaper")
-await conn.reply(m.chat, global.wait, m)
-let json = res.data
-let url = json.url
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, url, [['Спасибо💖', `/bot gracias`]], fgif, { mentions: [who] })}
-if (command == 'кофе') {
+let res = (await axios.get(`https://raw.githubusercontent.com/BrunoSobrino/TheMystic-Bot-MD/master/src/JSON/wprandom.json`)).data  
+let res2 = await res[Math.floor(res.length * Math.random())]
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, res2, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
+if (command == 'coffee') {
 let haha = await conn.getFile(`https://coffee.alexflipnote.dev/random`)
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'pentol') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/pentol?apikey=APIKEY`)
+let anu = await wallpaper('milk y mocha')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0]
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'caricatura') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/kartun?apikey=APIKEY`)
+let anu = await wallpaper('cartoon network')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0]  
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'ciberespacio') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/cyberspace?apikey=APIKEY`)
+let anu = await wallpaper('cyberspace')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0]    
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'technology') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/teknologi?apikey=APIKEY`)
+let anu = await wallpaper('technology')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0]      
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'doraemon') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/doraemon?apikey=APIKEY`)
+let anu = await wallpaper('doraemon')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0]        
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 if (command == 'hacker') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/hekel?apikey=APIKEY`)
+let anu = await wallpaper('hacker')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0]   
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
-if (command == 'planeta') {
-let haha = await conn.getFile(`https://api-reysekha.herokuapp.com/api/wallpaper/tatasurya?apikey=APIKEY`)
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
+if (command == 'planeta') { 
+let anu = await wallpaper('planet')
+let result = anu[Math.floor(Math.random() * anu.length)]  
+let haha = result.image[0]     
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
-if (command == 'профили') {
-let haha = await conn.getFile(`https://zenzapis.xyz/randomimage/profil?apikey=${apikey}`)
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
+if (command == 'randomprofile') {
+let haha = await conn.getFile(`https://api.zahwazein.xyz/randomimage/profil?apikey=${apikey}`)
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
-if (command == 'обои2') {
-let haha = await conn.getFile(`https://zenzapis.xyz/randomimage/aesthetic?apikey=${apikey}`)
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
+if (command == 'wpaesthetic2') {
+let haha = await conn.getFile(`https://api.zahwazein.xyz/randomimage/aesthetic?apikey=${apikey}`)
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
-if (command == 'машины') {
-let haha = await conn.getFile(`https://zenzapis.xyz/randomimage/mobil?apikey=${apikey}`)
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
+if (command == 'wpvehiculo') {
+let haha = await conn.getFile(`https://api.zahwazein.xyz/randomimage/mobil?apikey=${apikey}`)
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
-if (command == 'обои') {
-let haha = await conn.getFile(`https://zenzapis.xyz/randomimage/wallhp?apikey=${apikey}`)
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
+if (command == 'wallhp') {
+let haha = await conn.getFile(`https://api.zahwazein.xyz/randomimage/wallhp?apikey=${apikey}`)
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
-if (command == 'мотоцыклы') {
-let haha = await conn.getFile(`https://zenzapis.xyz/randomimage/motor?apikey=${apikey}`)
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
+if (command == 'wpmoto') { 
+let haha = await conn.getFile(`https://api.zahwazein.xyz/randomimage/motor?apikey=${apikey}`)
 await conn.reply(m.chat, global.wait, m)
-conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 СЛЕДУЮЩАЯ 🔄', `/${command}`]], fgif, { mentions: [who] })}
+conn.sendButton(m.chat, `_${command}_`.trim(), `*◈•@${who.split("@s.whatsapp.net")[0]}*`, haha.data, [['🔄 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 🔄', `/${command}`]], fgif, { mentions: [who] })}
+
 }
-handler.command = ['обои', 'мотоцыклы', 'машины', 'обои2', 'кофе', 'профили', 'caricatura', 'ciberespacio', 'technology', 'doraemon', 'hacker', 'planeta', 'randomprofile', 'wpaesthetic2', 'wpvehiculo', 'wallhp', 'wpmoto']
+handler.command = ['wpmontaña', 'pubg', 'wpgaming', 'wpaesthetic', 'wprandom', 'coffee', 'pentol', 'caricatura', 'ciberespacio', 'technology', 'doraemon', 'hacker', 'planeta', 'randomprofile', 'wpaesthetic2', 'wpvehiculo', 'wallhp', 'wpmoto']
 export default handler
+
+async function wallpaper(title, page = '1') {
+return new Promise((resolve, reject) => {
+axios.get(`https://www.besthdwallpaper.com/search?CurrentPage=${page}&q=${title}`).then(({ data }) => {
+let $ = cheerio.load(data)
+let hasil = []
+$('div.grid-item').each(function (a, b) {
+hasil.push({
+title: $(b).find('div.info > a > h3').text(),
+type: $(b).find('div.info > a:nth-child(2)').text(),
+source: 'https://www.besthdwallpaper.com/'+$(b).find('div > a:nth-child(3)').attr('href'),
+image: [$(b).find('picture > img').attr('data-src') || $(b).find('picture > img').attr('src'), $(b).find('picture > source:nth-child(1)').attr('srcset'), $(b).find('picture > source:nth-child(2)').attr('srcset')]
+})})
+resolve(hasil)})})}

@@ -384,7 +384,7 @@ if (!text) return m.reply(`*[❗𝐈𝐍𝐅𝐎❗] ¿𝙲𝙾𝙼𝙾 𝚄𝚂
 ° ඬ⃟💫 ${usedPrefix + command} traffic-lights
 ° ඬ⃟💫 ${usedPrefix + command} train-station-poster
 ° ඬ⃟💫 ${usedPrefix + command} train_station
-° ඬ⃟💫 ${usedPrefix + command} 1
+° ඬ⃟💫 ${usedPrefix + command} tram
 ° ඬ⃟💫 ${usedPrefix + command} travellers-sketch
 ° ඬ⃟💫 ${usedPrefix + command} triangular
 ° ඬ⃟💫 ${usedPrefix + command} truck-advert
@@ -428,18 +428,18 @@ if (!text) return m.reply(`*[❗𝐈𝐍𝐅𝐎❗] ¿𝙲𝙾𝙼𝙾 𝚄𝚂
 ° ඬ⃟💫 ${usedPrefix + command} wayback
 ° ඬ⃟💫 ${usedPrefix + command} weave
 ° ඬ⃟💫 ${usedPrefix + command} wedding-day
-° ඬ⃟💫 ${usedPrefix + command} тень
+° ඬ⃟💫 ${usedPrefix + command} wet
 ° ඬ⃟💫 ${usedPrefix + command} wild-brush
 ° ඬ⃟💫 ${usedPrefix + command} wine-label
 ° ඬ⃟💫 ${usedPrefix + command} winter-princess
 ° ඬ⃟💫 ${usedPrefix + command} witch
 ° ඬ⃟💫 ${usedPrefix + command} woman_pilot
-° ඬ⃟💫 ${usedPrefix + command} доска
+° ඬ⃟💫 ${usedPrefix + command} wood
 ° ඬ⃟💫 ${usedPrefix + command} worker-by-the-billboard
 ° ඬ⃟💫 ${usedPrefix + command} woven-sketch
 ° ඬ⃟💫 ${usedPrefix + command} xmas_tree
 ° ඬ⃟💫 ${usedPrefix + command} yellow_wall`)
-m.reply('*[❗] Ожидайте приобразовую...*')
+m.reply('*[❗] ʀᴇᴀʟɪᴢᴀɴᴅᴏ ᴅɪsᴇɴ̃ᴏ, ᴀɢᴜᴀʀᴅᴇ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ...*')
 let img = await q.download?.()
 let url = await uploadImage(img)
 let images = `https://violetics.pw/api/photomaker/${encodeURIComponent(text)}?apikey=beta&image=${encodeURIComponent(url)}`
@@ -447,7 +447,7 @@ let caption = `*⎔┉━「 𝐏𝐇𝐌𝐀𝐊𝐄𝐑 」━┉⎔*
 *💟 𝙴𝙵𝙴𝙲𝚃𝙾:* ${text}`
 conn.sendButton(m.chat, caption, wm, images, [['💫 𝙼𝙰𝚂 𝙾𝙿𝙲𝙸𝙾𝙽𝙴𝚂 💫', `${usedPrefix}phmakerlist`]], m)
 }
-handler.command = /^(phmarker|phmarke|phmake)$/i
+handler.command = /^(phmaker|phmarker|phmarke|phmake)$/i
 export default handler
 const isUrl = (text) => {
 return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png)/, 'gi'))}

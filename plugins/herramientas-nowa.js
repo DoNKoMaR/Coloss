@@ -4,8 +4,8 @@
 -----------------------------------------------------------------------------------------*/
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 let regex = /x/g
-if (!text) throw '⚠️ Номер отсутствует.'
-if (!text.match(regex)) throw `*Пример использования: ${usedPrefix + command} 7918993404x*`
+if (!text) throw '⚠️ Falto el número.'
+if (!text.match(regex)) throw `*Ejemplo de uso: ${usedPrefix + command} 521999340434x*`
 let random = text.match(regex).length, total = Math.pow(10, random), array = []
 for (let i = 0; i < total; i++) {
 let list = [...i.toString().padStart(random, '0')]
@@ -16,10 +16,10 @@ array.push({ exists: true, jid: result, ...info })
 } else {
 array.push({ exists: false, jid: result })
 }}
-let txt = 'Сообщили\n\n' + array.filter(v => v.exists).map(v => `• Ссылка: wa.me/${v.jid.split('@')[0]}\n*• Биография:* ${v.status || 'Нет описания'}\n*• Дата:* ${formatDate(v.setAt)}`).join('\n\n') + '\n\n*Не зарегистировано*\n\n' + array.filter(v => !v.exists).map(v => v.jid.split('@')[0]).join('\n')
+let txt = 'Registrados\n\n' + array.filter(v => v.exists).map(v => `• Nro: wa.me/${v.jid.split('@')[0]}\n*• Bio:* ${v.status || 'Sin descripcion'}\n*• Fecha:* ${formatDate(v.setAt)}`).join('\n\n') + '\n\n*No registrados*\n\n' + array.filter(v => !v.exists).map(v => v.jid.split('@')[0]).join('\n')
 m.reply(txt)
 }
-handler.command = /^пробить$/i
+handler.command = /^nowa$/i
 export default handler
 function formatDate(n, locale = 'id') {
 let d = new Date(n)

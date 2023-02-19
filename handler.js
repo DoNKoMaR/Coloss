@@ -1,3 +1,4 @@
+import { generateWAMessageFromContent } from "@adiwajshing/baileys"
 import { smsg } from './lib/simple.js'
 import { format } from 'util'
 import { fileURLToPath } from 'url'
@@ -872,6 +873,31 @@ export async function handler(chatUpdate) {
                     wood: 0,
                     wortel: 0,	
                 }
+                let akinator = global.db.data.users[m.sender].akinator
+		    if (typeof akinator !== 'object')
+			global.db.data.users[m.sender].akinator = {}
+		    if (akinator) {
+				if (!('sesi' in akinator)) akinator.sesi = false
+				if (!('server' in akinator)) akinator.server = null
+				if (!('frontaddr' in akinator)) akinator.frontaddr = null
+				if (!('session' in akinator)) akinator.session = null
+				if (!('signature' in akinator)) akinator.signature = null
+				if (!('question' in akinator)) akinator.question = null
+				if (!('progression' in akinator)) akinator.progression = null
+				if (!('step' in akinator)) akinator.step = null
+				if (!('soal' in akinator)) akinator.soal = null
+	            } else
+		        global.db.data.users[m.sender].akinator = {
+				sesi: false,
+				server: null,
+				frontaddr: null,
+				session: null,
+				signature: null,
+				question: null,
+				progression: null,
+				step: null, 
+				soal: null
+				}   		
             let chat = global.db.data.chats[m.chat]
             if (typeof chat !== 'object')
                 global.db.data.chats[m.chat] = {}
@@ -894,6 +920,7 @@ export async function handler(chatUpdate) {
                 if (!('antiTraba' in chat)) chat.antiTraba = false
                 if (!('antiArab' in chat)) chat.antiArab = false
 		if (!('modoadmin' in chat)) chat.modoadmin = false
+		if (!('simi' in chat)) chat.simi = false     
                 if (!isNumber(chat.expired)) chat.expired = 0
             } else
                 global.db.data.chats[m.chat] = {
@@ -915,6 +942,7 @@ export async function handler(chatUpdate) {
                     antiTraba: false,
                     antiArab: false,
 	            modoadmin: false,
+	            simi: false,
                     expired: 0,
                 }
             let settings = global.db.data.settings[this.user.jid]
@@ -1277,11 +1305,9 @@ export async function participantsUpdate({ id, participants, action }) {
                         text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || '*𝚂𝙸𝙽 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽*') :
                               (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
                         
-//let ftroli = { key: { fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "6289523258649-1604595598@g.us" }, "message": { orderMessage: { itemCount: 6546464643, status: 200, thumbnail: imagen1, surface: 200, message: wm, orderTitle: wm, sellerJid: '0@s.whatsapp.net' }}, contextInfo: { "forwardingScore": 999, "isForwarded": true}, sendEphemeral: true}   
-
-this.sendButton(id, text, groupMetadata.subject, apii.data, [[(action == 'add' ? 'ДОБРО ПОЖАЛОВАТЬ' : 'ДОСВИДОС'), (action == 'add' ? '#welcomegc' : '#byegc')], ['МЕНЮ', `#меню`]], null, {mentions: this.parseMention(text)})
+//this.sendButton(id, text, groupMetadata.subject, apii.data, [[(action == 'add' ? '💫 𝙱𝙸𝙴𝙽𝚅𝙴𝙽𝙸𝙳𝙾 💫' : '☠ 𝙰𝙳𝙸𝙾𝚂 ☠'), (action == 'add' ? '#welcomegc' : '#byegc')], ['♦ 𝙼𝙴𝙽𝚄 𝙳𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾𝚂 ♦', `#menu`]], null, {mentions: this.parseMention(text)})
                 
-/* this.sendFile(id, apii.data, 'pp.jpg', text, null, false, { mentions: [user] }) */
+ this.sendFile(id, apii.data, 'pp.jpg', text, null, false, { mentions: [user] }) 
                    }
                 }
             }
@@ -1370,18 +1396,21 @@ export async function deleteUpdate(message) {
 
 global.dfail = (type, m, conn) => {
     let msg = {
-        rowner: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТА КОМАНДА МОЖЕТ ИСПОЛЬЗОВАТЬСЯ ТОЛЬКО ВЛАДЕЛЬЦЕМ БОТА*',
-        owner: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТА КОМАНДА МОЖЕТ ИСПОЛЬЗОВАТЬСЯ ТОЛЬКО ВЛАДЕЛЬЦЕМ БОТА*',
-        mods: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТУ КОМАНДУ МОЖЕТ ИСПОЛЬЗОВАТЬ ВЛАДЕЛИЦ ИЛИ АДМИН ГРУППЫ*',
-        premium: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТУ КОМАНДУ МОЖЕТ ИСПОЛЬЗОВАТЬ ВЛАДЕЛИЦ ИЛИ АДМИН ГРУППЫ*',
-        group: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТУ КОМАНДУ МОЖНО ИПОЛЬЗОВАТЬ ТОЛЬКО В ГРУППЕ*',
-        private: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТУ КОМАНДУ МОЖНО ИСПОЛЬЗОВАТЬ ТОЛЬКО В ПРИВАТНОМ ЧАТЕ*',
-        admin: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТУ КОМАНДА МОЖЕТ ИПОЛЬЗОВАТЬ ТОЛЬКО АДМИН ГРУППЫ*',
-        botAdmin: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЧТО ИМЕТЬ ВОЗМОЖНОСТЬ ИСПОЛЬЗОВАТЬ ЭТУ КОМАДУ НЕОБХОДИМО БОТУ БЫТЬ АДМИНОМ ЭТОЙ ГРУППЫ*',
-        unreg: '*[ 🛑 ЭЙ!! КУДА СУЕШЬСЯ, ВЫ НЕ ЗАРЕГИСТИРОВАНЫ 🛑 ]*\n\n*—◉ ДЛЯ ИСПОЛЬЗОВАНИЯ ЭТО КОМАНДЫ НЕОБХОДИМО ЗАРЕГИСТРИРОВАТЬСЯ ИСПОЛЬЗУЯ КОМАНДУ*\n*➣ #verificar*',
-        restrict: '*[ ⚠️ ОПОВЕЩЕНИЕ ⚠️ ] ЭТА КОМАНДА ОГРАНИЧЕНА/ОТКЛЮЧИНА ПО РЕШЕНИЮ ВЛАДЕЛЬЦА БОТА*'
+        rowner: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝚂𝙾𝙻𝙾 𝙿𝚄𝙴𝙳𝙴 𝚂𝙴𝚁 𝚄𝚃𝙸𝙻𝙸𝚉𝙰𝙳𝙾 𝙿𝙾𝚁 𝙴𝙻/𝙻𝙰 𝙿𝚁𝙾𝙿𝙸𝙴𝚃𝙰𝚁𝙸𝙾/𝙰 (𝙾𝚆𝙽𝙴𝚁) 𝙳𝙴𝙻 𝙱𝙾𝚃*',
+        owner: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝚂𝙾𝙻𝙾 𝙿𝚄𝙴𝙳𝙴 𝚂𝙴𝚁 𝚄𝚃𝙸𝙻𝙸𝚉𝙰𝙳𝙾 𝙿𝙾𝚁 𝙴𝙻/𝙻𝙰 𝙿𝚁𝙾𝙿𝙸𝙴𝚃𝙰𝚁𝙸𝙾/𝙰 (𝙾𝚆𝙽𝙴𝚁) 𝙳𝙴𝙻 𝙱𝙾𝚃*',
+        mods: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝚂𝙾𝙻𝙾 𝙿𝚄𝙴𝙳𝙴 𝚂𝙴𝚁 𝚄𝚃𝙸𝙻𝙸𝚉𝙰𝙳𝙾 𝙿𝙾𝚁 𝙼𝙾𝙳𝙴𝚁𝙰𝙳𝙾𝚁𝙴𝚂 𝚈 𝙴𝙻/𝙻𝙰 𝙿𝚁𝙾𝙿𝙸𝙴𝚃𝙰𝚁𝙸𝙾/𝙰 (𝙾𝚆𝙽𝙴𝚁) 𝙳𝙴𝙻 𝙱𝙾𝚃*',
+        premium: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝚂𝙾𝙻𝙾 𝙿𝚄𝙴𝙳𝙴 𝚂𝙴𝚁 𝚄𝚃𝙸𝙻𝙸𝚉𝙰𝙳𝙾 𝙿𝙾𝚁 𝚄𝚂𝚄𝙰𝚁𝙸𝙾𝚂 𝙿𝚁𝙴𝙼𝙸𝚄𝙼 𝚈 𝙴𝙻/𝙻𝙰 𝙿𝚁𝙾𝙿𝙸𝙴𝚃𝙰𝚁𝙸𝙾/𝙰 (𝙾𝚆𝙽𝙴𝚁) 𝙳𝙴𝙻 𝙱𝙾𝚃*',
+        group: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝚂𝙾𝙻𝙾 𝙿𝚄𝙴𝙳𝙴 𝚂𝙴𝚁 𝚄𝚃𝙸𝙻𝙸𝚉𝙰𝙳𝙾 𝙴𝙽 𝙶𝚁𝚄𝙿𝙾𝚂*',
+        private: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝚂𝙾𝙻𝙾 𝙿𝚄𝙴𝙳𝙴 𝚂𝙴𝚁 𝚄𝚃𝙸𝙻𝙸𝚉𝙰𝙳𝙾 𝙴𝙽 𝙲𝙷𝙰𝚃 𝙿𝚁𝙸𝚅𝙰𝙳𝙾 𝙳𝙴𝙻 𝙱𝙾𝚃*',
+        admin: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝚂𝙾𝙻𝙾 𝙿𝚄𝙴𝙳𝙴 𝚂𝙴𝚁 𝚄𝚃𝙸𝙻𝙸𝚉𝙰𝙳𝙾 𝙿𝙾𝚁 𝙰𝙳𝙼𝙸𝙽𝚂 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾*',
+        botAdmin: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙿𝙰𝚁𝙰 𝙿𝙾𝙳𝙴𝚁 𝚄𝚂𝙰𝚁 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝙴𝚂 𝙽𝙴𝙲𝙴𝚂𝙰𝚁𝙸𝙾 𝚀𝚄𝙴 𝙴𝙻 𝙱𝙾𝚃 𝚂𝙴𝙰 𝙰𝙳𝙼𝙸𝙽, 𝙰𝙲𝙴𝙽𝙳𝙴𝚁 𝙰 𝙰𝙳𝙼𝙸𝙽 𝙴𝚂𝚃𝙴 𝙽𝚄𝙼𝙴𝚁𝙾*',
+        unreg: '*[ 🛑 𝐇𝐄𝐘!! 𝐀𝐋𝐓𝐎, 𝐍𝐎 𝐄𝐒𝐓𝐀𝐒 𝐑𝐄𝐆𝐈𝐒𝐓𝐑𝐀𝐃𝐎 🛑 ]*\n\n*—◉ 𝙿𝙰𝚁𝙰 𝚄𝚂𝙰𝚁 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝙳𝙴𝙱𝙴𝚂 𝚁𝙴𝙶𝙸𝚂𝚃𝚁𝙰𝚁𝚃𝙴, 𝚄𝚂𝙰 𝙴𝙻 𝙲𝙾𝙼𝙰𝙽𝙳𝙾*\n*➣ #verificar nombre.edad*',
+        restrict: '*[ ⚠️ 𝐀𝐋𝐄𝐑𝐓𝐀 ⚠️ ] 𝙴𝚂𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝙴𝚂𝚃𝙰 𝚁𝙴𝚂𝚃𝚁𝙸𝙽𝙶𝙸𝙳𝙾/𝙳𝙴𝚂𝙰𝙲𝚃𝙸𝚅𝙰𝙳𝙾 𝙿𝙾𝚁 𝙳𝙴𝚂𝙸𝙲𝙸𝙾𝙽 𝙳𝙴𝙻 𝙿𝚁𝙾𝙿𝙸𝙴𝚃𝙰𝚁𝙸𝙾/𝙰 (𝙾𝚆𝙽𝙴𝚁) 𝙳𝙴𝙻 𝙱𝙾𝚃*'
     }[type]
-    if (msg) return m.reply(msg)
+    let aa = { quoted: m, userJid: conn.user.jid }
+    let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: '[ ⚠ ] 𝐀𝐕𝐈𝐒𝐎 - 𝐀𝐋𝐄𝐑𝐓𝐀', body: 'ᴛʜᴇ ᴍʏsᴛɪᴄ - ʙᴏᴛ', thumbnail: imagen1, sourceUrl: 'https://github.com/BrunoSobrino/TheMystic-Bot-MD' }}}}, aa)
+    if (msg) return conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
+    //if (msg) return m.reply(msg)
 }
 
 let file = global.__filename(import.meta.url, true)

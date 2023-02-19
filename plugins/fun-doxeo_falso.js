@@ -13,7 +13,7 @@ await m.reply(boost5)
 let old = performance.now()
 let neww = performance.now()
 let speed = `${neww - old}`
-let doxeo = `*[ ✔ ] ДАННЫЕ ВЫЧЕСЛИННЫ УЧПЕШНО*\n*⏳ ЗАГРУЖАЮ: ${speed} 𝚜𝚎𝚐𝚞𝚗𝚍𝚘𝚜!*
+let doxeo = `*[ ✔ ] 𝙿𝙴𝚁𝚂𝙾𝙽𝙰 𝙳𝙾𝚇𝚇𝙴𝙰𝙳𝙰 𝙲𝙾𝙽 𝙴𝚇𝙸𝚃𝙾*\n*⏳ 𝙳𝙾𝚇𝚇𝙴𝙰𝙳𝙾 𝙴𝙽: ${speed} 𝚜𝚎𝚐𝚞𝚗𝚍𝚘𝚜!*
 
 *𝚁𝙴𝚂𝚄𝙻𝚃𝙰𝙳𝙾𝚂 𝙾𝙱𝚃𝙴𝙽𝙸𝙳𝙾𝚂:*
 
@@ -57,7 +57,7 @@ m.reply(doxeo, null, { mentions: conn.parseMention(doxeo) })
 }
 handler.help = ['doxear <nombre> | <@tag>']
 handler.tags = ['fun']
-handler.command = /^Doxxeo|doxxeo|doxxear|Doxxear|doxeo|doxear|doxxeame|данные/i
+handler.command = /^Doxxeo|doxxeo|doxxear|Doxxear|doxeo|doxear|doxxeame|doxeame/i
 export default handler
 
 function pickRandom(list) {
